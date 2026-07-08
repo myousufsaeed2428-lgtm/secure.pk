@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learn — SecurePK</title>
+<meta name="description" content="Plain-language cybersecurity guides for everyday internet users in Pakistan.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="cyberBg" aria-hidden="true"></canvas>
+
+<nav id="mainNav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <path d="M100 14 L172 42 V96 C172 140 142 172 100 188 C58 172 28 140 28 96 V42 Z" fill="none" stroke="var(--cyan)" stroke-width="10"/>
+        <path d="M78 98 L94 114 L126 78" fill="none" stroke="var(--cyan)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      SecurePK<span class="dot">.</span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="learn.html" class="active">Learn</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="training.html">Training Lab</a>
+      <a href="index.html#report">Report a Scam</a>
+      <a href="index.html#about">About</a>
+      <a href="sitemap.html">Sitemap</a>
+      <a href="training.html" class="nav-cta">Start Training</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
+  </div>
+</nav>
+
+<button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top" title="Back to top">↑</button>
+
+<div id="themeSwitch">
+  <span class="ts-label">Theme</span>
+  <span class="ts-dot sky active" data-theme="sky" title="Sky Daylight"></span>
+  <span class="ts-dot rose" data-theme="rose" title="Rose Quartz"></span>
+  <span class="ts-dot sage" data-theme="sage" title="Sage Mint"></span>
+  <span class="ts-dot lavender" data-theme="lavender" title="Lavender Bloom"></span>
+</div>
+
+<div class="breadcrumb-bar">
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span class="bc-sep">/</span>
+    <span class="bc-current">Learn</span>
+  </div>
+</div>
+
+<div class="page-header">
+  <div class="wrap">
+    <div class="case-num">// GUIDES</div>
+    <h1>Everything, explained without the jargon</h1>
+    <p>Pick a topic. Each guide is written to be read once and actually remembered. When you're ready to practice the concepts hands-on, head to the <a href="training.html">Training Lab</a>.</p>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="toc">
+    <a href="#passwords">Passwords</a>
+    <a href="#links">Suspicious links</a>
+    <a href="#urgency">Urgency &amp; pressure</a>
+    <a href="#otp">OTP safety</a>
+    <a href="#wifi">Public Wi-Fi</a>
+    <a href="#social">Social media hygiene</a>
+  </div>
+</div>
+
+<article class="wrap-narrow">
+  <div class="article" id="passwords">
+    <div class="guide-meta">Guide 01 · Passwords</div>
+    <h1>Why "Ahmed@1998" isn't a strong password</h1>
+    <p>A password like this feels safe because it has a capital letter, a symbol, and a number — the classic advice. But it's built entirely from things attackers already look for first: a name, an "@" swap, and a birth year. Automated cracking tools try exactly these combinations before anything else.</p>
+    <p>What actually matters more than complexity is <strong>length</strong> and <strong>unpredictability</strong>. A random string of four unrelated words is dramatically harder to crack than a short, symbol-heavy word, and it's easier for a human to remember.</p>
+    <div class="tip"><strong>Try this:</strong> pick four unrelated words that mean nothing about you personally — not your name, city, team, or birth year — and string them together. Add one number or symbol anywhere in the middle, not just at the end.</div>
+    <h2>One password, many accounts, is the real risk</h2>
+    <p>The bigger danger usually isn't someone guessing your password — it's reusing the same one everywhere. When one website you use gets breached, attackers automatically try that same email-and-password pair on banks, email providers, and social media. This is called credential stuffing, and it's why a single reused password can cascade into losing several accounts at once.</p>
+    <p>Where possible, turn on two-factor authentication (a second step beyond the password, usually a code) on your email and banking apps specifically — these are the accounts that unlock everything else if compromised.</p>
+    <div class="tip"><strong>Practice it:</strong> the Training Lab's <a href="training.html#case_password">password strength challenge</a> checks a candidate password against these exact rules, live, in your browser.</div>
+  </div>
+
+  <hr class="div">
+
+  <div class="article" id="links">
+    <div class="guide-meta">Guide 02 · Messaging</div>
+    <h1>The five-second check before you click any link</h1>
+    <p>Most scam texts follow the same structure: a familiar-sounding sender name, a small urgent problem, and a link to "fix" it. The fix is almost always the trap.</p>
+    <h2>What to look at, in order</h2>
+    <p><strong>1. Who sent it.</strong> Real banks and couriers send from short official codes, not random personal numbers. Anyone can set a display name to say "HBL-Alert" — that name proves nothing.</p>
+    <p><strong>2. The actual link, not the button text.</strong> Hold your finger on the link (without tapping) or check the address bar after it loads. A domain like <span class="mono-inline">hbl-secure-update.info</span> is not the same as your bank's real domain — extra words before or after the real brand name are the giveaway.</p>
+    <p><strong>3. What it's asking you to do.</strong> Genuine institutions don't usually ask you to "verify" your account by entering your card PIN or full OTP on a link they texted you.</p>
+    <div class="tip"><strong>Safer habit:</strong> if a text claims there's a problem with your bank, courier, or utility account, close the message and open the official app or website yourself instead of tapping the link.</div>
+  </div>
+
+  <hr class="div">
+
+  <div class="article" id="urgency">
+    <div class="guide-meta">Guide 03 · Social engineering</div>
+    <h1>Why urgency is always the tell</h1>
+    <p>Nearly every scam — regardless of the channel — relies on the same emotional trick: making you feel like you have to decide right now, before you've had time to think it through or ask someone else.</p>
+    <p>"Your account will be suspended in 24 hours." "This offer expires in 10 minutes." "Your parcel will be returned today." These deadlines are manufactured. Real organizations that need something from you give you real time and multiple ways to reach them.</p>
+    <div class="tip"><strong>Rule of thumb:</strong> if a message is pushing you to act immediately and skip verifying independently, that pressure is the scam working as intended — not a real deadline.</div>
+    <h2>Slowing down is the actual defence</h2>
+    <p>You don't need to spot every technical trick. You just need one habit: when something feels urgent and unexpected, pause and verify it through a channel you chose yourself — the number on your card, the official app, a person you trust — rather than the one the message gave you.</p>
+  </div>
+
+  <hr class="div">
+
+  <div class="article" id="otp">
+    <div class="guide-meta">Guide 04 · Accounts</div>
+    <h1>Your OTP is not for anyone, ever — including "bank staff"</h1>
+    <p>A one-time code (OTP) exists for one purpose: to prove that the person completing an action is you. The moment you share it with someone else, it proves the same thing to them instead.</p>
+    <p>No legitimate bank, telecom provider, or delivery service will ever call and ask you to read a code back to them. If someone asks for this, the call itself is the attack, regardless of how official they sound or what caller ID shows.</p>
+    <div class="tip"><strong>If this happens to you:</strong> hang up. Call your bank back using the number printed on your card, not any number the caller gave you.</div>
+  </div>
+
+  <hr class="div">
+
+  <div class="article" id="wifi">
+    <div class="guide-meta">Guide 05 · Networks</div>
+    <h1>Public Wi-Fi: what's actually risky and what isn't</h1>
+    <p>Using public Wi-Fi at a cafe or airport to browse or check the news is generally low-risk today, since most websites use encryption (look for the padlock/https) that protects the connection even on a shared network.</p>
+    <p>The real risk is logging into sensitive accounts — banking apps, email — on a network you don't control, especially one with no password at all, since it's easier for someone on the same network to set up a fake, lookalike version of that network to intercept traffic.</p>
+    <div class="tip"><strong>Simple rule:</strong> browsing is fine; banking isn't, unless you're on mobile data or a trusted connection.</div>
+  </div>
+
+  <hr class="div">
+
+  <div class="article" id="social">
+    <div class="guide-meta">Guide 06 · Social media</div>
+    <h1>When a friend's account asks for something odd</h1>
+    <p>If a friend messages asking you to forward a code, lend money urgently, or click a strange link, treat it as a compromised account until proven otherwise — this is one of the most common ways scams spread, because people trust messages from people they know.</p>
+    <div class="tip"><strong>Quick check:</strong> call or voice-message that friend on a separate channel before acting on anything unusual sent through chat.</div>
+  </div>
+
+  <div style="text-align:center; margin-top:24px;">
+    <a href="quiz.html" class="btn">Test what you just learned →</a>
+  </div>
+</article>
+
+<footer class="site-footer">
+  <div class="footer-bottom" style="max-width:1120px; margin:0 auto;">
+    <span class="footer-bottom-text">© 2026 SecurePK — an awareness project by Yousuf Saeed. Educational content only, not legal or financial advice.</span>
+    <span class="footer-status"><span class="dot-ring"></span>No data leaves this page</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

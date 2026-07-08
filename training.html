@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Training Lab — SecurePK</title>
+<meta name="description" content="A hands-on cybersecurity training lab: learn phishing red flags, web input exploitation, website scanning, IoT hardening, and password hygiene through five interactive modules, then earn a completion certificate.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .rail-track-outer{max-width:1120px; margin:0 auto; padding:0 28px;}
+  .rail-track{height:3px; background:var(--panel-2); position:relative; overflow:hidden;}
+  .rail-fill{height:100%; width:0%; background:linear-gradient(90deg, var(--blue), var(--cyan)); box-shadow:0 0 10px rgba(var(--a2),0.6); transition:width 0.6s ease;}
+  .nav-score{font-family:var(--mono); font-size:12px; color:var(--dim); white-space:nowrap; display:flex; align-items:center; gap:7px;}
+  .nav-score b{color:var(--cyan); font-size:13px;}
+  .nav-score .dot-ring{width:7px; height:7px; border-radius:50%; background:var(--cyan); box-shadow:0 0 8px rgba(var(--a2),0.8);}
+  @media(max-width:860px){ .nav-score b{font-size:12px;} }
+</style>
+</head>
+<body>
+<canvas id="cyberBg" aria-hidden="true"></canvas>
+
+<nav id="mainNav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <path d="M100 14 L172 42 V96 C172 140 142 172 100 188 C58 172 28 140 28 96 V42 Z" fill="none" stroke="var(--cyan)" stroke-width="10"/>
+        <path d="M78 98 L94 114 L126 78" fill="none" stroke="var(--cyan)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      SecurePK<span class="dot">.</span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="learn.html">Learn</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="#learn" data-sec="learn" class="active">Training Lab</a>
+      <a href="#case1" data-sec="case1">Phishing</a>
+      <a href="#case2" data-sec="case2">Web security</a>
+      <a href="#case_scanner" data-sec="case_scanner">Scanner</a>
+      <a href="#case3" data-sec="case3">IoT audit</a>
+      <a href="#case_password" data-sec="case_password">Password</a>
+      <a href="#summary" data-sec="summary">Certificate</a>
+      <a href="sitemap.html">Sitemap</a>
+    </div>
+    <div class="nav-right">
+      <span class="nav-score"><span class="dot-ring"></span>Readiness <b id="railScore">0%</b></span>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
+  </div>
+  <div class="rail-track-outer"><div class="rail-track"><div class="rail-fill" id="railFill"></div></div></div>
+</nav>
+
+<button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top" title="Back to top">↑</button>
+
+<div id="themeSwitch">
+  <span class="ts-label">Theme</span>
+  <span class="ts-dot sky active" data-theme="sky" title="Sky Daylight"></span>
+  <span class="ts-dot rose" data-theme="rose" title="Rose Quartz"></span>
+  <span class="ts-dot sage" data-theme="sage" title="Sage Mint"></span>
+  <span class="ts-dot lavender" data-theme="lavender" title="Lavender Bloom"></span>
+</div>
+
+<div class="breadcrumb-bar">
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span class="bc-sep">/</span>
+    <span class="bc-current">Training Lab</span>
+  </div>
+</div>
+
+<div class="wrap">
+  <header class="hero" id="top">
+    <svg class="hero-glow-icon" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:var(--blue)"/>
+          <stop offset="100%" style="stop-color:var(--cyan)"/>
+        </linearGradient>
+      </defs>
+      <path d="M100 14 L172 42 V96 C172 140 142 172 100 188 C58 172 28 140 28 96 V42 Z" fill="none" stroke="url(#shieldGrad)" stroke-width="4" opacity="0.55"/>
+      <path d="M100 34 L156 56 V96 C156 130 132 156 100 168 C68 156 44 130 44 96 V56 Z" fill="rgba(var(--a1),0.06)" stroke="url(#shieldGrad)" stroke-width="2.5" opacity="0.85"/>
+      <path d="M78 98 L94 114 L126 78" fill="none" stroke="url(#shieldGrad)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div class="tag-row">
+      <span class="tag">Training simulation</span>
+      <span class="tag">Safe sandbox — no live systems</span>
+    </div>
+    <h1 class="title">Most breaches don't start with a hack. <span>They start with a click.</span></h1>
+    <p class="lede">Five hands-on modules on the ways attackers actually get in: manipulating people, exploiting web forms, and walking through the front door of an unsecured smart device — plus a scanner and a couple of challenges to test what you've learned from the guides and quiz.</p>
+    <div class="hero-stats" style="grid-template-columns:repeat(3,1fr); max-width:560px;">
+      <div class="hstat"><div class="n">5</div><div class="l">Interactive modules</div></div>
+      <div class="hstat"><div class="n">~20min</div><div class="l">To complete</div></div>
+      <div class="hstat"><div class="n">0%</div><div class="l">Real risk — it's a sandbox</div></div>
+    </div>
+    <div class="cta-row">
+      <button class="btn" onclick="document.getElementById('case1').scrollIntoView({behavior:'smooth'})">Begin briefing</button>
+    </div>
+  </header>
+
+  <!-- LEARN -->
+  <section class="learn-intro" id="learn">
+    <div class="case-head">
+      <span class="case-num">BRIEFING 00 — LEARN</span>
+    </div>
+    <h2 class="case-title">The five things worth knowing before the lab</h2>
+    <p class="case-desc">Quick theory first — each interactive module below builds directly on one of these. For the Pakistan-specific scam patterns, see the <a href="learn.html">Learn guides</a> and <a href="quiz.html">quiz</a>.</p>
+    <div class="learn-grid">
+      <div class="learn-card">
+        <div class="lc-num">01</div>
+        <h3>Cybersecurity basics</h3>
+        <p>Security rests on three goals — confidentiality, integrity, and availability. Most real-world breaches trace back to a human or configuration mistake, not an exotic technical exploit.</p>
+      </div>
+      <div class="learn-card">
+        <div class="lc-num">02</div>
+        <h3>Social engineering</h3>
+        <p>Phishing (email), smishing (SMS), and vishing (voice calls) all use the same trick: urgency and authority, not code, to get someone to hand over access.</p>
+      </div>
+      <div class="learn-card">
+        <div class="lc-num">03</div>
+        <h3>Web security</h3>
+        <p>The OWASP Top 10 catalogues the most common ways web apps fail — injection flaws and broken input handling near the top of the list.</p>
+      </div>
+      <div class="learn-card">
+        <div class="lc-num">04</div>
+        <h3>IoT security</h3>
+        <p>Smart cameras, plugs, and routers usually ship with weak factory defaults and rarely get updated once installed — which is exactly what makes them a soft target.</p>
+      </div>
+      <div class="learn-card">
+        <div class="lc-num">05</div>
+        <h3>Cyber hygiene</h3>
+        <p>Unique passwords, multi-factor authentication, and prompt updates stop the overwhelming majority of everyday attacks — no advanced tooling required.</p>
+      </div>
+    </div>
+
+    <div class="lab-note">
+      <div class="lab-eyebrow">How the live lab works</div>
+      <p>Every "attack" a visitor sees on this page is a scripted, client-side simulation — nothing here touches a real server. For a practical demonstration in front of a supervisor, the same concepts get shown live against an intentionally vulnerable target running in an isolated virtual machine, disconnected from the internet.</p>
+      <p>Standard, publicly documented training applications built for exactly this purpose:</p>
+      <div class="lab-tools">
+        <span class="lab-tool">DVWA</span>
+        <span class="lab-tool">OWASP Juice Shop</span>
+        <span class="lab-tool">OWASP WebGoat</span>
+        <span class="lab-tool">bWAPP</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODULE 1: SOCIAL ENGINEERING -->
+  <section class="case" id="case1">
+    <div class="case-head">
+      <span class="case-num">MODULE 01 / 05 — SOCIAL ENGINEERING</span>
+      <span class="stamp">Phishing spotter</span>
+    </div>
+    <h2 class="case-title">Find the red flags before you click</h2>
+    <p class="case-desc">Attackers don't need to break your firewall if they can talk you into handing over your password. This is a mockup of a real phishing email. Click on anything that looks off — the sender, the wording, the link, the pressure tactics.</p>
+
+    <div class="panel">
+      <div class="panel-title">Inbox — 1 new message</div>
+      <div class="mail-mock">
+        <div class="mail-bar">From: <span class="flag-hit" data-id="f1" data-note="Real domain is @secureledgerbank.com — this one swaps the L for a capital i and adds an extra letter. Always hover before you trust a sender.">security@secureIedgerbank-support.com</span></div>
+        <div class="mail-body">
+          <div class="mail-subject"><span class="flag-hit" data-id="f2" data-note="Urgency and fear are the two most common levers in phishing. Legitimate banks rarely threaten account closure within hours.">URGENT: Your account will be suspended in 12 hours</span></div>
+          <div class="mail-row">Dear <span class="flag-hit" data-id="f3" data-note="A generic greeting instead of your real name is a sign the message was blasted to thousands of addresses at once.">Valued Customer</span>,</div>
+          <div class="mail-text">We detected unusual activety on your account. <span class="flag-hit" data-id="f4" data-note="Spelling and grammar slips ('activety', 'Please click bellow') are common in phishing kits translated or copy-pasted in a hurry.">Please click bellow</span> to verify your identity or your account will be permanently locked.</div>
+          <div style="margin-bottom:16px;"><span class="flag-hit mail-btn" data-id="f5" data-note="Hovering over a button like this in a real email client would show the true destination — often a lookalike domain, not your bank's real site.">Verify My Account</span></div>
+          <div class="mail-row">Thank you, <span class="flag-hit" data-id="f6" data-note="No named signer, no job title, no direct contact — real institutions sign correspondence, phishing kits don't bother.">The Security Team</span></div>
+        </div>
+      </div>
+      <div class="game-status">
+        <span>Red flags found: <span class="found-count" id="foundCount">0</span> / 6</span>
+        <span id="gameDone" style="color:var(--green); display:none;">✓ Case cleared</span>
+      </div>
+      <div class="flag-note" id="flagNote"></div>
+    </div>
+  </section>
+
+  <!-- MODULE 2: WEB ASSESSMENT -->
+  <section class="case" id="case2">
+    <div class="case-head">
+      <span class="case-num">MODULE 02 / 05 — WEB ASSESSMENT</span>
+      <span class="stamp">Input exploitation</span>
+    </div>
+    <h2 class="case-title">See what an unvalidated input field lets through</h2>
+    <p class="case-desc">This is a safe, fully simulated search box — nothing here touches a real database or a real browser. Try typing something ordinary, then try one of the payloads below to see how an unguarded input can be turned against an application.</p>
+
+    <div class="flow-list">
+      <div class="flow-step"><div class="fs-n">01 What</div><div class="fs-t">The vulnerability</div><div class="fs-d">Unvalidated input lets attacker-supplied text change the meaning of a query or a page.</div></div>
+      <div class="flow-step"><div class="fs-n">02 How</div><div class="fs-t">Exploited (conceptually)</div><div class="fs-d">A crafted string breaks out of the expected data and is treated as code or logic instead.</div></div>
+      <div class="flow-step"><div class="fs-n">03 Demo</div><div class="fs-t">Below, and live in the lab</div><div class="fs-d">Try the payloads here, then the same class of bug against DVWA or Juice Shop in your VM.</div></div>
+      <div class="flow-step"><div class="fs-n">04 Impact</div><div class="fs-t">Data exposure or hijack</div><div class="fs-d">Full-table reads via SQL injection, or session theft and page defacement via XSS.</div></div>
+      <div class="flow-step"><div class="fs-n">05 Prevent</div><div class="fs-t">Validate at the boundary</div><div class="fs-d">Never trust input; validate type, length, and format before it reaches logic or the page.</div></div>
+      <div class="flow-step"><div class="fs-n">06 Fix</div><div class="fs-t">For developers</div><div class="fs-d">Parameterised queries for SQL, output encoding/escaping for anything rendered as HTML.</div></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">Simulated search — try it</div>
+      <div class="sim-row">
+        <input type="text" class="sim-input" id="simInput" placeholder="Search products…">
+        <button class="btn" onclick="runSim()">Submit</button>
+      </div>
+      <div class="payload-chips">
+        <span class="chip" onclick="fillSim(&quot;laptop stand&quot;)">Try: normal search</span>
+        <span class="chip" onclick="fillSim(&quot;' OR '1'='1&quot;)">Try: SQL injection</span>
+        <span class="chip" onclick="fillSim(&quot;&lt;script&gt;alert('XSS')&lt;/script&gt;&quot;)">Try: XSS payload</span>
+      </div>
+      <div class="sim-output" id="simOutput">// Output appears here after you submit a query</div>
+      <div class="sim-explain" id="simExplain"></div>
+    </div>
+  </section>
+
+  <!-- MODULE 3: WEBSITE SCANNER -->
+  <section class="case" id="case_scanner">
+    <div class="case-head">
+      <span class="case-num">MODULE 03 / 05 — WEBSITE SCANNER</span>
+      <span class="stamp">Simulated recon</span>
+    </div>
+    <h2 class="case-title">See what a basic security scan checks for</h2>
+    <p class="case-desc">Enter any hostname to generate a simulated report — this doesn't make real network requests. Point the real version of this technique only at your own lab site or a target you're authorised to test.</p>
+
+    <div class="panel">
+      <div class="panel-title">Simulated scanner — try it</div>
+      <div class="sim-row">
+        <input type="text" class="sim-input" id="scanInput" placeholder="e.g. my-training-lab.local">
+        <button class="btn" onclick="runScan()">Run scan</button>
+      </div>
+      <div class="scan-report" id="scanReport"></div>
+    </div>
+  </section>
+
+  <!-- MODULE 4: IOT SECURITY -->
+  <section class="case" id="case3">
+    <div class="case-head">
+      <span class="case-num">MODULE 04 / 05 — IOT SECURITY</span>
+      <span class="stamp">Smart home auditor</span>
+    </div>
+    <h2 class="case-title">Audit a home network the way an attacker would</h2>
+    <p class="case-desc">Routers, cameras, and smart plugs usually leave the factory wide open. Answer honestly about a network you know — yours, a family member's, anyone's — and watch the live risk meter move as you go.</p>
+
+    <div class="panel">
+      <div class="panel-title">Audit checklist — 5 questions</div>
+      <div class="risk-meter">
+        <div class="risk-meter-head"><span>Live risk level</span><span id="riskLabel">Unanswered</span></div>
+        <div class="risk-track"><div class="risk-fill" id="riskFill"></div></div>
+      </div>
+      <div id="auditQs"></div>
+      <div class="audit-result" id="auditResult">
+        <div class="grade-row">
+          <div class="grade-letter" id="gradeLetter">-</div>
+          <div class="grade-text" id="gradeText"></div>
+        </div>
+        <ul class="audit-fixes" id="auditFixes"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODULE 5: PASSWORD STRENGTH CHALLENGE -->
+  <section class="case" id="case_password">
+    <div class="case-head">
+      <span class="case-num">MODULE 05 / 05 — CYBER HYGIENE</span>
+      <span class="stamp">Password challenge</span>
+    </div>
+    <h2 class="case-title">Build a password that would actually hold up</h2>
+    <p class="case-desc">Type a password below — it's never sent anywhere, checked entirely in your browser. Reach "strong" to clear this module.</p>
+
+    <div class="panel">
+      <div class="panel-title">Password strength challenge</div>
+      <input type="text" class="sim-input" id="pwInput" placeholder="Type a candidate password…" autocomplete="off">
+      <div class="pw-meter">
+        <div class="pw-track"><div class="pw-fill" id="pwFill"></div></div>
+        <div class="pw-label" id="pwLabel">Strength: —</div>
+      </div>
+      <div class="pw-checks">
+        <div class="pw-check" id="pwLen">○ 12+ characters</div>
+        <div class="pw-check" id="pwUpper">○ Upper and lower case</div>
+        <div class="pw-check" id="pwNum">○ Contains a number</div>
+        <div class="pw-check" id="pwSym">○ Contains a symbol</div>
+        <div class="pw-check" id="pwCommon">○ Not a common password</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="badges" id="badges">
+    <div class="case-head" style="justify-content:center;">
+      <span class="case-num">PROGRESS — BADGES EARNED</span>
+    </div>
+    <h2 class="case-title">One badge per cleared module</h2>
+    <div class="badges-row">
+      <div class="badge" id="badge1"><div class="b-mono">SE</div><div class="b-label">Social engineering</div></div>
+      <div class="badge" id="badge2"><div class="b-mono">WA</div><div class="b-label">Web assessment</div></div>
+      <div class="badge" id="badge3"><div class="b-mono">SC</div><div class="b-label">Website scanner</div></div>
+      <div class="badge" id="badge4"><div class="b-mono">IOT</div><div class="b-label">IoT security</div></div>
+      <div class="badge" id="badge5"><div class="b-mono">PW</div><div class="b-label">Cyber hygiene</div></div>
+    </div>
+  </section>
+
+  <section class="summary" id="summary">
+    <div class="cert-intro">
+      <p>Clear all five modules above and your certificate unlocks here — enter the name you want printed on it.</p>
+    </div>
+    <div class="name-row">
+      <input type="text" id="certNameInput" placeholder="Your full name" maxlength="60" value="Yousuf Saeed">
+    </div>
+
+    <div class="cert-locked" id="certLocked">
+      [ CERTIFICATE LOCKED ]
+      <div class="lock-progress" id="lockProgress">0 of 5 modules cleared</div>
+    </div>
+
+    <div class="cert" id="cert">
+      <div class="cert-inner">
+        <div class="cert-inner-bg">
+          <svg class="cert-watermark" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <path d="M100 14 L172 42 V96 C172 140 142 172 100 188 C58 172 28 140 28 96 V42 Z" fill="none" stroke="var(--text)" stroke-width="3"/>
+            <path d="M78 98 L94 114 L126 78" fill="none" stroke="var(--text)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="cert-frame-border"></div>
+          <span class="cert-corner tl"><svg viewBox="0 0 26 26"><path d="M2 26 V8 C2 4.5 4.5 2 8 2 H26" fill="none" stroke="var(--cyan)" stroke-width="2"/></svg></span>
+          <span class="cert-corner tr"><svg viewBox="0 0 26 26"><path d="M2 26 V8 C2 4.5 4.5 2 8 2 H26" fill="none" stroke="var(--cyan)" stroke-width="2"/></svg></span>
+          <span class="cert-corner bl"><svg viewBox="0 0 26 26"><path d="M2 26 V8 C2 4.5 4.5 2 8 2 H26" fill="none" stroke="var(--cyan)" stroke-width="2"/></svg></span>
+          <span class="cert-corner br"><svg viewBox="0 0 26 26"><path d="M2 26 V8 C2 4.5 4.5 2 8 2 H26" fill="none" stroke="var(--cyan)" stroke-width="2"/></svg></span>
+
+          <div class="cert-content">
+            <svg class="cert-crest" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="crestGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:var(--blue)"/>
+                  <stop offset="100%" style="stop-color:var(--cyan)"/>
+                </linearGradient>
+              </defs>
+              <circle cx="50" cy="50" r="46" fill="none" stroke="url(#crestGrad)" stroke-width="1.5" opacity="0.5"/>
+              <path d="M50 10 L82 24 V50 C82 70 68 86 50 94 C32 86 18 70 18 50 V24 Z" fill="rgba(var(--a1),0.10)" stroke="url(#crestGrad)" stroke-width="3"/>
+              <path d="M36 51 L46 61 L66 39" fill="none" stroke="url(#crestGrad)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+
+            <div class="cert-eyebrow">Certificate of Completion</div>
+            <div class="cert-title">Cybersecurity Awareness &amp; Training</div>
+            <div class="cert-subtitle">SecurePK Interactive Practical Training Platform</div>
+            <div class="cert-rule"></div>
+
+            <div class="cert-for">This certifies that</div>
+            <div class="cert-name" id="certName">Your name</div>
+            <div class="cert-desc">has successfully completed all five hands-on modules covering <b>social engineering</b>, <b>web application security</b>, <b>vulnerability scanning</b>, <b>IoT security</b> and <b>cyber hygiene</b>, demonstrating practical readiness against common real-world attack techniques.</div>
+
+            <div class="cert-body-row">
+              <div class="cbit"><div class="n" id="certScore">0%</div><div class="l">Readiness score</div></div>
+              <div class="cbit"><div class="n">5 / 5</div><div class="l">Modules cleared</div></div>
+              <div class="cbit"><div class="n" id="certDate">—</div><div class="l">Date issued</div></div>
+            </div>
+
+            <div class="cert-sign-row">
+              <div class="cert-sign">
+                <div class="sig">SecurePK Labs</div>
+                <div class="sig-line"></div>
+                <div class="sig-label">Issuing platform</div>
+              </div>
+              <div class="cert-sign">
+                <div class="sig">Hash-checked</div>
+                <div class="sig-line"></div>
+                <div class="sig-label">Not third-party accredited</div>
+              </div>
+            </div>
+
+            <div class="cert-id" id="certId">Certificate ID — —</div>
+            <div class="cert-verify-note">Hash-checked, not an accredited credential — verify below</div>
+          </div>
+        </div>
+      </div>
+        <div class="cert-actions">
+          <button class="btn" onclick="window.print()">Print / save as PDF</button>
+        </div>
+    </div>
+
+    <div class="verify-box">
+      <div class="panel-title">Verify a certificate</div>
+      <div class="verify-desc">Certificate IDs are generated from the holder's name and issue date using a one-way hash, entirely in-browser. Re-entering the same details recomputes the hash — if it doesn't match the ID printed on the certificate, that certificate was edited or fabricated. This confirms internal consistency only; it is not an accredited or third-party-checked credential.</div>
+      <div class="verify-grid">
+        <div>
+          <label for="vName">Name on certificate</label>
+          <input type="text" id="vName" placeholder="e.g. Yousuf Saeed">
+        </div>
+        <div>
+          <label for="vDate">Issue date</label>
+          <input type="date" id="vDate">
+        </div>
+        <div class="vg-full">
+          <label for="vId">Certificate ID</label>
+          <input type="text" id="vId" placeholder="e.g. SG-2C88E3">
+        </div>
+      </div>
+      <div class="verify-actions">
+        <button class="btn btn-outline" onclick="verifyCert()">Check integrity</button>
+      </div>
+      <div class="verify-result" id="verifyResult"></div>
+    </div>
+  </section>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <path d="M100 14 L172 42 V96 C172 140 142 172 100 188 C58 172 28 140 28 96 V42 Z" fill="none" stroke="var(--cyan)" stroke-width="10"/>
+          <path d="M78 98 L94 114 L126 78" fill="none" stroke="var(--cyan)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        SecurePK<span class="dot" style="color:var(--cyan);">.</span>
+      </div>
+      <p class="footer-desc">A hands-on cybersecurity awareness and training platform. Every exercise on this page is a scripted, client-side simulation — no live systems, no data collection, nothing leaves your browser.</p>
+      <p class="footer-credit">Built by Yousuf Saeed — Diploma in Cyber Security, Aligarh Institute</p>
+    </div>
+    <div class="footer-col">
+      <h4>Modules</h4>
+      <a href="#learn">Learn the basics</a>
+      <a href="#case1">Phishing spotter</a>
+      <a href="#case2">Web input exploitation</a>
+      <a href="#case_scanner">Website scanner</a>
+    </div>
+    <div class="footer-col">
+      <h4>More</h4>
+      <a href="#case3">IoT network audit</a>
+      <a href="#case_password">Password strength</a>
+      <a href="#badges">Badges</a>
+      <a href="#summary">Certificate</a>
+    </div>
+    <div class="footer-col">
+      <h4>Reference tools</h4>
+      <a href="https://owasp.org/www-project-top-ten/" target="_blank" rel="noopener">OWASP Top 10</a>
+      <a href="https://dvwa.co.uk/" target="_blank" rel="noopener">DVWA</a>
+      <a href="https://owasp.org/www-project-juice-shop/" target="_blank" rel="noopener">OWASP Juice Shop</a>
+      <a href="https://owasp.org/www-project-webgoat/" target="_blank" rel="noopener">OWASP WebGoat</a>
+      <a href="sitemap.html">Sitemap</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-bottom-text">© 2026 SecurePK Training Platform — for educational use only</span>
+    <span class="footer-status"><span class="dot-ring"></span>All exercises run locally · no data leaves this page</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+  var progress = {m1:0, m2:0, m3:0, m4:0, m5:0};
+
+  function simpleHash(s){
+    var h = 0;
+    for(var i=0;i<s.length;i++){ h = ((h<<5)-h+s.charCodeAt(i))|0; }
+    return Math.abs(h);
+  }
+  function computeCertId(name, isoDate){
+    var seedStr = (name || 'anon').trim().toLowerCase() + '-' + isoDate;
+    return 'SG-' + simpleHash(seedStr).toString(16).toUpperCase().padStart(6,'0').slice(0,6);
+  }
+
+  function updateRail(){
+    var vals = [progress.m1,progress.m2,progress.m3,progress.m4,progress.m5];
+    var cleared = vals.filter(function(v){return v===1}).length;
+    var total = Math.round((cleared / 5) * 100);
+    document.getElementById('railFill').style.width = total + '%';
+    document.getElementById('railScore').textContent = total + '%';
+    document.getElementById('certScore').textContent = total + '%';
+
+    ['badge1','badge2','badge3','badge4','badge5'].forEach(function(id, i){
+      document.getElementById(id).classList.toggle('earned', vals[i] === 1);
+    });
+
+    var locked = document.getElementById('certLocked');
+    var cert = document.getElementById('cert');
+    var lockProgress = document.getElementById('lockProgress');
+
+    if(cleared === 5){
+      locked.style.display = 'none';
+      cert.classList.add('show');
+      var nm = document.getElementById('certNameInput').value.trim();
+      document.getElementById('certName').textContent = nm === '' ? 'Your name' : nm;
+      var now = new Date();
+      var isoDate = now.toISOString().slice(0,10);
+      document.getElementById('certDate').textContent = now.toLocaleDateString(undefined, {year:'numeric', month:'short', day:'numeric'});
+      var idCode = computeCertId(nm, isoDate);
+      document.getElementById('certId').textContent = 'Certificate ID — ' + idCode + ' · Issued ' + isoDate;
+      document.getElementById('vName').value = nm;
+      document.getElementById('vDate').value = isoDate;
+    } else {
+      locked.style.display = 'block';
+      cert.classList.remove('show');
+      lockProgress.textContent = cleared + ' of 5 modules cleared';
+    }
+  }
+
+  document.getElementById('certNameInput').addEventListener('input', updateRail);
+
+  // ---------- Module 1: phishing spotter ----------
+  var totalFlags = document.querySelectorAll('.flag-hit').length;
+  var foundIds = {};
+  document.querySelectorAll('.flag-hit').forEach(function(el){
+    el.addEventListener('click', function(){
+      var id = el.getAttribute('data-id');
+      if(!foundIds[id]){
+        foundIds[id] = true;
+        el.classList.add('found');
+        var count = Object.keys(foundIds).length;
+        document.getElementById('foundCount').textContent = count;
+        var note = document.getElementById('flagNote');
+        note.textContent = el.getAttribute('data-note');
+        note.classList.add('show');
+        if(count === totalFlags){
+          document.getElementById('gameDone').style.display = 'inline';
+          progress.m1 = 1;
+          updateRail();
+        }
+      }
+    });
+  });
+
+  // ---------- Module 2: input exploitation ----------
+  function fillSim(val){
+    document.getElementById('simInput').value = val;
+  }
+  function escapeHtml(s){
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+  function runSim(){
+    var val = document.getElementById('simInput').value;
+    var out = document.getElementById('simOutput');
+    var explain = document.getElementById('simExplain');
+    if(val.trim() === ''){
+      out.innerHTML = '// Enter a query first';
+      return;
+    }
+    var lower = val.toLowerCase();
+    if(lower.indexOf("' or '1'='1") !== -1 || lower.indexOf('or 1=1') !== -1){
+      out.innerHTML = '<span class="bad">SIMULATED QUERY:</span> SELECT * FROM products WHERE name = \'' + escapeHtml(val) + '\';\n<span class="bad">RESULT: 4,812 rows returned (entire table)</span>';
+      explain.textContent = "This is what a SQL injection looks like. The quote character breaks out of the intended string and the "+"' OR '1'='1"+" clause is always true, so a query meant to match one product name returns every row in the table. A parameterised query or prepared statement — never building SQL by pasting user input straight in — closes this off completely.";
+      explain.classList.add('show');
+    } else if(lower.indexOf('<script') !== -1){
+      out.innerHTML = '<span class="bad">SIMULATED PAGE OUTPUT:</span>\n&lt;div class="results"&gt;No results for "' + escapeHtml(val) + '"&lt;/div&gt;\n<span class="bad">⚠ Browser would have executed this as code instead of displaying it as text.</span>';
+      explain.textContent = "This is cross-site scripting. If a page prints your search term straight into the HTML without escaping it, a "+"<script>"+" tag stops being text and becomes code the browser runs — code that could steal a session cookie or deface the page. Escaping or sanitising any user input before it's rendered is what stops this.";
+      explain.classList.add('show');
+    } else {
+      out.innerHTML = '<span class="ok">SIMULATED QUERY:</span> SELECT * FROM products WHERE name LIKE \'%' + escapeHtml(val) + '%\';\n<span class="ok">RESULT: 3 matching products</span>';
+      explain.textContent = "This is what a normal, well-behaved search looks like — the input is only ever treated as data, never as part of the instruction itself. That separation between data and code is the entire idea behind input validation.";
+      explain.classList.add('show');
+    }
+    progress.m2 = 1;
+    updateRail();
+  }
+
+  // ---------- Module 3: website scanner (simulated) ----------
+  function hashStr(s){
+    var h = 0;
+    for(var i = 0; i < s.length; i++){
+      h = ((h << 5) - h + s.charCodeAt(i)) | 0;
+    }
+    return Math.abs(h);
+  }
+  var scanChecks = [
+    {label:"HTTPS enforced", fix:"Redirect all HTTP traffic to HTTPS and enable HSTS."},
+    {label:"Security headers present (CSP, X-Frame-Options)", fix:"Add a Content-Security-Policy and X-Frame-Options header to reduce XSS and clickjacking risk."},
+    {label:"Cookies flagged Secure and HttpOnly", fix:"Set the Secure and HttpOnly flags on session cookies so they can't be read by scripts or sent over plain HTTP."},
+    {label:"Directory listing disabled", fix:"Disable directory browsing on the web server so folder contents aren't exposed."},
+    {label:"Server/version banner hidden", fix:"Suppress server and framework version headers so attackers can't easily target known exploits."},
+    {label:"Modern TLS configuration", fix:"Disable TLS 1.0/1.1 and weak cipher suites, keep only TLS 1.2+."}
+  ];
+  function runScan(){
+    var val = document.getElementById('scanInput').value.trim();
+    var report = document.getElementById('scanReport');
+    if(val === ''){
+      report.innerHTML = '<p style="font-size:13px; color:var(--muted);">Enter a hostname first.</p>';
+      report.classList.add('show');
+      return;
+    }
+    var seed = hashStr(val.toLowerCase());
+    var rows = '';
+    scanChecks.forEach(function(check, i){
+      var pass = ((seed >> i) & 1) === 0;
+      rows += '<div class="scan-row"><div><div>' + escapeHtml(check.label) + '</div>' +
+        (pass ? '' : '<div class="scan-fix">' + escapeHtml(check.fix) + '</div>') +
+        '</div><span class="scan-status ' + (pass ? 'pass' : 'fail') + '">' + (pass ? 'Pass' : 'Fail') + '</span></div>';
+    });
+    report.innerHTML = '<p style="font-size:12px; color:var(--dim); margin-bottom:8px; font-family:var(--mono);">SIMULATED REPORT FOR ' + escapeHtml(val.toUpperCase()) + ' — NO REAL REQUEST WAS MADE</p>' + rows;
+    report.classList.add('show');
+    progress.m3 = 1;
+    updateRail();
+  }
+
+  // ---------- Module 4: IoT auditor ----------
+  var auditData = [
+    {q:"Have you changed every device's default admin password?", w:2, fix:"Change default credentials on the router and every camera or smart plug — factory passwords are published online."},
+    {q:"Is the WiFi network using WPA2 or WPA3 encryption (not WEP or open)?", w:2, fix:"Switch the router to WPA2 or WPA3 in its wireless security settings — older WEP encryption can be broken in minutes."},
+    {q:"Are IoT devices (cameras, plugs, TVs) on a separate guest network from your laptops and phones?", w:1, fix:"Put IoT devices on a guest or separate VLAN so a compromised camera can't reach your main computers."},
+    {q:"Do you install firmware updates when the router or camera prompts for one?", w:1, fix:"Turn on automatic firmware updates, or check manually every few months — updates patch known exploits."},
+    {q:"Is remote/cloud access to your cameras protected by two-factor authentication?", w:1, fix:"Enable two-factor authentication on any app that can view your cameras remotely."}
+  ];
+  var auditAnswers = {};
+  var auditMaxScore = auditData.reduce(function(s,i){return s+i.w;}, 0);
+  var qContainer = document.getElementById('auditQs');
+  auditData.forEach(function(item, i){
+    var div = document.createElement('div');
+    div.className = 'audit-q';
+    div.innerHTML = '<p>' + item.q + '</p><div class="audit-opts"><span class="opt" data-i="'+i+'" data-v="yes">Yes</span><span class="opt" data-i="'+i+'" data-v="no">No</span></div>';
+    qContainer.appendChild(div);
+  });
+  function updateRiskMeter(){
+    var answered = Object.keys(auditAnswers).length;
+    var riskFill = document.getElementById('riskFill');
+    var riskLabel = document.getElementById('riskLabel');
+    if(answered === 0){
+      riskFill.style.width = '0%';
+      riskLabel.textContent = 'Unanswered';
+      return;
+    }
+    var badScore = 0;
+    auditData.forEach(function(item, i){
+      if(auditAnswers[i] !== undefined){
+        if(auditAnswers[i] === 'no'){ badScore += item.w; }
+      }
+    });
+    var riskPct = Math.round((badScore / auditMaxScore) * 100);
+    riskFill.style.width = riskPct + '%';
+    if(riskPct === 0){ riskFill.style.background = 'var(--green)'; riskLabel.textContent = 'Low'; }
+    else if(riskPct <= 33){ riskFill.style.background = 'var(--amber)'; riskLabel.textContent = 'Moderate'; }
+    else { riskFill.style.background = 'var(--red)'; riskLabel.textContent = 'High'; }
+  }
+  qContainer.querySelectorAll('.opt').forEach(function(el){
+    el.addEventListener('click', function(){
+      var i = el.getAttribute('data-i');
+      var v = el.getAttribute('data-v');
+      auditAnswers[i] = v;
+      var siblings = el.parentElement.querySelectorAll('.opt');
+      siblings.forEach(function(s){ s.classList.remove('sel-yes','sel-no'); });
+      el.classList.add(v === 'yes' ? 'sel-yes' : 'sel-no');
+      updateRiskMeter();
+      if(Object.keys(auditAnswers).length === auditData.length){
+        showAuditResult();
+      }
+    });
+  });
+  function showAuditResult(){
+    var maxScore = 0, score = 0;
+    var fixes = [];
+    auditData.forEach(function(item, i){
+      maxScore += item.w;
+      if(auditAnswers[i] === 'yes'){
+        score += item.w;
+      } else {
+        fixes.push(item.fix);
+      }
+    });
+    var pct = score / maxScore;
+    var letter, color;
+    if(pct === 1){ letter = 'A'; color = 'var(--green)'; }
+    else if(pct >= 0.75){ letter = 'B'; color = 'var(--green)'; }
+    else if(pct >= 0.5){ letter = 'C'; color = 'var(--amber)'; }
+    else if(pct >= 0.25){ letter = 'D'; color = 'var(--amber)'; }
+    else { letter = 'F'; color = 'var(--red)'; }
+    var gl = document.getElementById('gradeLetter');
+    gl.textContent = letter;
+    gl.style.color = color;
+    document.getElementById('gradeText').textContent = fixes.length === 0
+      ? 'Every check passed — this is a well-hardened network.'
+      : fixes.length + ' of ' + auditData.length + ' checks need attention. Fix these in order of impact:';
+    var fixList = document.getElementById('auditFixes');
+    fixList.innerHTML = '';
+    fixes.forEach(function(f){
+      var li = document.createElement('li');
+      li.textContent = f;
+      fixList.appendChild(li);
+    });
+    document.getElementById('auditResult').classList.add('show');
+    progress.m4 = 1;
+    updateRail();
+  }
+
+  // ---------- Module 5: password strength challenge ----------
+  var commonPasswords = ['password','123456','12345678','qwerty','letmein','admin','welcome','iloveyou','111111','abc123','password1','12345'];
+  var pwInput = document.getElementById('pwInput');
+  pwInput.addEventListener('input', function(){
+    var val = pwInput.value;
+    var checks = {
+      pwLen: val.length >= 12,
+      pwUpper: /[a-z]/.test(val) && /[A-Z]/.test(val),
+      pwNum: /[0-9]/.test(val),
+      pwSym: /[^A-Za-z0-9]/.test(val),
+      pwCommon: val.length > 0 && commonPasswords.indexOf(val.toLowerCase()) === -1
+    };
+    var passed = 0;
+    Object.keys(checks).forEach(function(id){
+      var el = document.getElementById(id);
+      var ok = checks[id];
+      if(ok) passed++;
+      el.classList.toggle('on', ok);
+      el.textContent = (ok ? '●' : '○') + ' ' + el.textContent.slice(2);
+    });
+    var pct = val.length === 0 ? 0 : Math.round((passed / 5) * 100);
+    var fill = document.getElementById('pwFill');
+    var label = document.getElementById('pwLabel');
+    fill.style.width = pct + '%';
+    var strength;
+    if(val.length === 0){ strength = '—'; fill.style.background = 'var(--red)'; }
+    else if(passed <= 2){ strength = 'Weak'; fill.style.background = 'var(--red)'; }
+    else if(passed <= 4){ strength = 'Fair'; fill.style.background = 'var(--amber)'; }
+    else { strength = 'Strong'; fill.style.background = 'var(--green)'; }
+    label.textContent = 'Strength: ' + strength;
+    if(passed === 5){
+      progress.m5 = 1;
+      updateRail();
+    }
+  });
+
+  function verifyCert(){
+    var name = document.getElementById('vName').value.trim();
+    var date = document.getElementById('vDate').value;
+    var id = document.getElementById('vId').value.trim().toUpperCase();
+    var result = document.getElementById('verifyResult');
+    if(name === '' || date === '' || id === ''){
+      result.textContent = 'Fill in all three fields to check a certificate.';
+      result.className = 'verify-result show fail';
+      return;
+    }
+    var expected = computeCertId(name, date);
+    if(id === expected){
+      result.textContent = '✔ MATCH — recomputed hash: ' + expected + '. This certificate is internally consistent with the name and date entered.';
+      result.className = 'verify-result show pass';
+    } else {
+      result.textContent = '✘ NO MATCH — expected ' + expected + ' but got ' + id + '. The ID doesn\'t correspond to this name/date pair.';
+      result.className = 'verify-result show fail';
+    }
+  }
+
+  updateRail();
+
+  // ---------- Nav: active section highlighting ----------
+  var navLinksEl = document.getElementById('navLinks');
+  var navSections = ['learn','case1','case2','case_scanner','case3','case_password','summary']
+    .map(function(id){ return document.getElementById(id); })
+    .filter(Boolean);
+  var navLinkEls = navLinksEl.querySelectorAll('a[data-sec]');
+  var sectionObserver = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        var id = entry.target.id;
+        navLinkEls.forEach(function(a){
+          a.classList.toggle('active', a.getAttribute('data-sec') === id);
+        });
+      }
+    });
+  }, {rootMargin:'-40% 0px -55% 0px', threshold:0});
+  navSections.forEach(function(sec){ sectionObserver.observe(sec); });
+</script>
+</body>
+</html>

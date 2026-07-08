@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sitemap — SecurePK</title>
+<meta name="description" content="Full site map of SecurePK — every page and section, one click away.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="cyberBg" aria-hidden="true"></canvas>
+
+<nav id="mainNav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <path d="M100 14 L172 42 V96 C172 140 142 172 100 188 C58 172 28 140 28 96 V42 Z" fill="none" stroke="var(--cyan)" stroke-width="10"/>
+        <path d="M78 98 L94 114 L126 78" fill="none" stroke="var(--cyan)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      SecurePK<span class="dot">.</span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="learn.html">Learn</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="training.html">Training Lab</a>
+      <a href="index.html#report">Report a Scam</a>
+      <a href="index.html#about">About</a>
+      <a href="sitemap.html" class="active">Sitemap</a>
+      <a href="training.html" class="nav-cta">Start Training</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
+  </div>
+</nav>
+
+<button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top" title="Back to top">↑</button>
+
+<div id="themeSwitch">
+  <span class="ts-label">Theme</span>
+  <span class="ts-dot sky active" data-theme="sky" title="Sky Daylight"></span>
+  <span class="ts-dot rose" data-theme="rose" title="Rose Quartz"></span>
+  <span class="ts-dot sage" data-theme="sage" title="Sage Mint"></span>
+  <span class="ts-dot lavender" data-theme="lavender" title="Lavender Bloom"></span>
+</div>
+
+<div class="breadcrumb-bar">
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span class="bc-sep">/</span>
+    <span class="bc-current">Sitemap</span>
+  </div>
+</div>
+
+<div class="page-header">
+  <div class="wrap">
+    <div class="case-num">// EVERY PAGE, ONE CLICK AWAY</div>
+    <h1>Sitemap</h1>
+    <p>Every page and section on SecurePK, in one place — useful if you're looking for something specific or just want the full lay of the land.</p>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="sitemap-grid">
+
+      <div class="sitemap-col">
+        <h3>🏠 Home</h3>
+        <ul>
+          <li><a href="index.html">Overview<span class="sm-desc">Hero, stats, and quick links</span><span class="sm-arrow">→</span></a></li>
+          <li><a href="index.html#threats">Threat patterns<span class="sm-desc">The six scams doing the most damage right now</span><span class="sm-arrow">→</span></a></li>
+          <li><a href="index.html#learn">Start here guides<span class="sm-desc">Top three guides, featured</span><span class="sm-arrow">→</span></a></li>
+          <li><a href="index.html#quiz-teaser">Would you catch this?<span class="sm-desc">Quiz preview scenario</span><span class="sm-arrow">→</span></a></li>
+          <li><a href="index.html#lab-teaser">Training lab preview<span class="sm-desc">What the five modules cover</span><span class="sm-arrow">→</span></a></li>
+          <li><a href="index.html#report">Report a scam<span class="sm-desc">FIA NR3C and bank helplines</span><span class="sm-arrow">→</span></a></li>
+          <li><a href="index.html#about">About this project<span class="sm-desc">Who built SecurePK and why</span><span class="sm-arrow">→</span></a></li>
+        </ul>
+      </div>
+
+      <div class="sitemap-col">
+        <h3>📖 Learn</h3>
+        <ul>
+          <li><a href="learn.html#passwords">Passwords<span class="sm-desc">Why length beats forced complexity</span><span class="sm-arrow">→</span></a></li>
+          <li><a href="learn.html#links">Suspicious links<span class="sm-desc">The five-second check before you tap</span><span class="sm-arrow">→</span></a></li>
+          <li><a href="learn.html#urgency">Urgency &amp; pressure<span class="sm-desc">Why manufactured deadlines are the tell</span><span class="sm-arrow">→</span></a></li>
+          <li><a href="learn.html#otp">OTP safety<span class="sm-desc">Your code is not for anyone, ever</span><span class="sm-arrow">→</span></a></li>
+          <li><a href="learn.html#wifi">Public Wi-Fi<span class="sm-desc">What's actually risky and what isn't</span><span class="sm-arrow">→</span></a></li>
+          <li><a href="learn.html#social">Social media hygiene<span class="sm-desc">When a friend's account asks for something odd</span><span class="sm-arrow">→</span></a></li>
+        </ul>
+      </div>
+
+      <div class="sitemap-col">
+        <h3>🎯 Quiz</h3>
+        <ul>
+          <li><a href="quiz.html">Take the quiz<span class="sm-desc">10 real-style scenarios, instant scoring</span><span class="sm-arrow">→</span></a></li>
+          <li><a href="quiz.html">Get your certificate<span class="sm-desc">Unlocks the moment you finish all 10</span><span class="sm-arrow">→</span></a></li>
+        </ul>
+      </div>
+
+      <div class="sitemap-col">
+        <h3>🧪 Training Lab</h3>
+        <ul>
+          <li><a href="training.html#learn">Learn the basics<span class="sm-desc">A refresher before the hands-on modules</span><span class="sm-arrow">→</span></a></li>
+          <li><a href="training.html#case1">Phishing spotter<span class="sm-desc">Click every red flag in a scam email</span><span class="sm-arrow">→</span></a></li>
+          <li><a href="training.html#case2">Web input exploitation<span class="sm-desc">SQL injection and XSS in a sandbox</span><span class="sm-arrow">→</span></a></li>
+          <li><a href="training.html#case_scanner">Website scanner<span class="sm-desc">A simulated vulnerability scan</span><span class="sm-arrow">→</span></a></li>
+          <li><a href="training.html#case3">IoT network audit<span class="sm-desc">Spot the risky devices on a home network</span><span class="sm-arrow">→</span></a></li>
+          <li><a href="training.html#case_password">Password lab<span class="sm-desc">Build a password that would actually hold up</span><span class="sm-arrow">→</span></a></li>
+          <li><a href="training.html#summary">Certificate<span class="sm-desc">Unlocks after all five modules are cleared</span><span class="sm-arrow">→</span></a></li>
+        </ul>
+      </div>
+
+      <div class="sitemap-col">
+        <h3>🛡️ Report &amp; reference</h3>
+        <ul>
+          <li><a href="index.html#report">FIA Cyber Crime Wing (NR3C)<span class="sm-desc">Federal cybercrime complaints</span><span class="sm-arrow">→</span></a></li>
+          <li><a href="index.html#report">Your bank's fraud helpline<span class="sm-desc">Always the number on your card</span><span class="sm-arrow">→</span></a></li>
+          <li><a href="https://owasp.org/www-project-top-ten/" target="_blank" rel="noopener">OWASP Top 10<span class="sm-desc">External reference, opens in a new tab</span><span class="sm-arrow">↗</span></a></li>
+        </ul>
+      </div>
+
+      <div class="sitemap-col">
+        <h3>ℹ️ This page</h3>
+        <ul>
+          <li><a href="sitemap.html">Sitemap<span class="sm-desc">You are here</span><span class="sm-arrow">→</span></a></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-bottom" style="max-width:1120px; margin:0 auto;">
+    <span class="footer-bottom-text">© 2026 SecurePK — an awareness project by Yousuf Saeed. Educational content only, not legal or financial advice.</span>
+    <span class="footer-status"><span class="dot-ring"></span>No data leaves this page</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

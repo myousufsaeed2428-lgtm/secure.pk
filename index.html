@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SecurePK — Cyber Security Awareness &amp; Training</title>
+<meta name="description" content="Plain-language guides, a phishing quiz, real Pakistan-specific scam patterns, and a hands-on interactive training lab with a completion certificate.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cpath d='M100 14 L172 42 V96 C172 140 142 172 100 188 C58 172 28 140 28 96 V42 Z' fill='%23EEF3FC' stroke='%2307809A' stroke-width='10'/%3E%3Cpath d='M78 98 L94 114 L126 78' fill='none' stroke='%2307809A' stroke-width='16' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="cyberBg" aria-hidden="true"></canvas>
+
+<nav id="mainNav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <path d="M100 14 L172 42 V96 C172 140 142 172 100 188 C58 172 28 140 28 96 V42 Z" fill="none" stroke="var(--cyan)" stroke-width="10"/>
+        <path d="M78 98 L94 114 L126 78" fill="none" stroke="var(--cyan)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      SecurePK<span class="dot">.</span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html" class="active">Home</a>
+      <a href="learn.html">Learn</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="training.html">Training Lab</a>
+      <a href="index.html#report">Report a Scam</a>
+      <a href="index.html#about">About</a>
+      <a href="sitemap.html">Sitemap</a>
+      <a href="training.html" class="nav-cta">Start Training</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
+  </div>
+</nav>
+
+<button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top" title="Back to top">↑</button>
+
+<div id="themeSwitch">
+  <span class="ts-label">Theme</span>
+  <span class="ts-dot sky active" data-theme="sky" title="Sky Daylight"></span>
+  <span class="ts-dot rose" data-theme="rose" title="Rose Quartz"></span>
+  <span class="ts-dot sage" data-theme="sage" title="Sage Mint"></span>
+  <span class="ts-dot lavender" data-theme="lavender" title="Lavender Bloom"></span>
+</div>
+
+<!-- Live-style scam feed ticker -->
+<div class="feed" aria-label="Recently reported scam patterns">
+  <div class="feed-track">
+    <span class="feed-item"><span class="ftag">SMISHING</span> "Your parcel is on hold, pay Rs. 90 courier fee to release" — fake courier link</span>
+    <span class="feed-item"><span class="ftag">OTP FRAUD</span> Caller claims to be "bank security," asks you to read your OTP aloud</span>
+    <span class="feed-item"><span class="ftag">JOB SCAM</span> "Selected without interview" WhatsApp offer asking for a refundable deposit</span>
+    <span class="feed-item"><span class="ftag">SIM SWAP</span> Unexpected "your SIM will be blocked" call demanding CNIC + code</span>
+    <span class="feed-item"><span class="ftag">PRIZE SCAM</span> "You won a lucky draw" SMS from an unknown company you never entered</span>
+    <span class="feed-item"><span class="ftag">ACCOUNT TAKEOVER</span> Facebook message from a "friend" asking to forward a login code</span>
+    <span class="feed-item"><span class="ftag">SMISHING</span> "Your parcel is on hold, pay Rs. 90 courier fee to release" — fake courier link</span>
+    <span class="feed-item"><span class="ftag">OTP FRAUD</span> Caller claims to be "bank security," asks you to read your OTP aloud</span>
+    <span class="feed-item"><span class="ftag">JOB SCAM</span> "Selected without interview" WhatsApp offer asking for a refundable deposit</span>
+    <span class="feed-item"><span class="ftag">SIM SWAP</span> Unexpected "your SIM will be blocked" call demanding CNIC + code</span>
+    <span class="feed-item"><span class="ftag">PRIZE SCAM</span> "You won a lucky draw" SMS from an unknown company you never entered</span>
+    <span class="feed-item"><span class="ftag">ACCOUNT TAKEOVER</span> Facebook message from a "friend" asking to forward a login code</span>
+  </div>
+</div>
+
+<header class="hero" id="top">
+  <svg class="hero-glow-icon" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:var(--blue)"/>
+        <stop offset="100%" style="stop-color:var(--cyan)"/>
+      </linearGradient>
+    </defs>
+    <path d="M100 14 L172 42 V96 C172 140 142 172 100 188 C58 172 28 140 28 96 V42 Z" fill="none" stroke="url(#shieldGrad)" stroke-width="4" opacity="0.55"/>
+    <path d="M100 34 L156 56 V96 C156 130 132 156 100 168 C68 156 44 130 44 96 V56 Z" fill="rgba(var(--a1),0.06)" stroke="url(#shieldGrad)" stroke-width="2.5" opacity="0.85"/>
+    <path d="M78 98 L94 114 L126 78" fill="none" stroke="url(#shieldGrad)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  <div class="wrap">
+    <div class="tag-row">
+      <span class="tag">Cyber Awareness · Built in Pakistan</span>
+      <span class="tag">Includes a hands-on training lab</span>
+    </div>
+    <h1 class="title">Most people don't get <span>hacked</span>.<br>They get <span>talked into it</span>.</h1>
+    <p class="lede">SecurePK breaks down the scams actually circulating in Pakistan right now — OTP fraud, fake courier texts, job scams — in plain language, then lets you practice spotting the same tricks hands-on in an interactive training lab, ending with a completion certificate.</p>
+    <div class="hero-stats">
+      <div class="hstat"><div class="n">6</div><div class="l">scam patterns tracked</div></div>
+      <div class="hstat"><div class="n">10</div><div class="l">question awareness quiz</div></div>
+      <div class="hstat"><div class="n">5</div><div class="l">interactive lab modules</div></div>
+      <div class="hstat"><div class="n">100%</div><div class="l">free, no account required</div></div>
+    </div>
+    <div class="cta-row">
+      <a href="quiz.html" class="btn">Take the 2-minute quiz →</a>
+      <a href="training.html" class="btn btn-outline">Enter the training lab</a>
+      <a href="learn.html" class="btn btn-outline">Browse the guides</a>
+    </div>
+  </div>
+</header>
+
+<section id="threats">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="case-num">// KNOW THE SHAPE OF IT</div>
+      <h2 class="section-title">The scams doing the most damage right now</h2>
+      <p class="section-desc">Attackers don't usually need to break your device — they need you to make one quick decision under pressure. Here's what that pressure looks like.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <div class="icon">📱</div>
+        <h3>OTP &amp; call fraud</h3>
+        <p>A caller poses as your bank or telecom, creates urgency, and asks you to read out a one-time code. No real bank ever needs your OTP over the phone.</p>
+        <span class="severity sev-high">High impact</span>
+      </div>
+      <div class="card">
+        <div class="icon">📦</div>
+        <h3>Fake courier &amp; delivery links</h3>
+        <p>An SMS claims a parcel is stuck over a small unpaid fee. The link leads to a page built to steal your card details, not release any package.</p>
+        <span class="severity sev-high">High impact</span>
+      </div>
+      <div class="card">
+        <div class="icon">💼</div>
+        <h3>Job &amp; earn-from-home scams</h3>
+        <p>You're "selected" for a job with no interview, then asked for a refundable deposit or your CNIC details upfront to "process" your onboarding.</p>
+        <span class="severity sev-med">Medium impact</span>
+      </div>
+      <div class="card">
+        <div class="icon">🔁</div>
+        <h3>SIM swap attempts</h3>
+        <p>A call claims your SIM will be blocked unless you share a code or your CNIC. The real goal is hijacking your number to receive your OTPs.</p>
+        <span class="severity sev-high">High impact</span>
+      </div>
+      <div class="card">
+        <div class="icon">🎉</div>
+        <h3>Prize &amp; lottery messages</h3>
+        <p>A message says you've won a draw you never entered. Claiming it requires paying a "release fee" or sharing personal and banking details.</p>
+        <span class="severity sev-med">Medium impact</span>
+      </div>
+      <div class="card">
+        <div class="icon">👥</div>
+        <h3>Hijacked friend accounts</h3>
+        <p>A compromised friend's account messages you asking to forward a login code "sent by mistake" — it's your account being targeted next.</p>
+        <span class="severity sev-low">Rising</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="learn">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="case-num">// START HERE</div>
+      <h2 class="section-title">Guides worth reading first</h2>
+      <p class="section-desc">Short, practical, no fluff — each one takes under five minutes.</p>
+    </div>
+
+    <a href="learn.html#passwords" class="guide-row">
+      <div>
+        <div class="guide-meta">Guide · Passwords</div>
+        <h3>Why "Ahmed@1998" isn't a strong password, even with a symbol</h3>
+        <p>Length beats complexity. What actually makes a password hard to guess or crack.</p>
+      </div>
+      <span class="guide-arrow">→</span>
+    </a>
+    <a href="learn.html#links" class="guide-row">
+      <div>
+        <div class="guide-meta">Guide · Messaging</div>
+        <h3>The five-second check before you click any link in an SMS</h3>
+        <p>A quick habit that blocks most courier, prize, and bank-impersonation scams.</p>
+      </div>
+      <span class="guide-arrow">→</span>
+    </a>
+    <a href="learn.html#urgency" class="guide-row">
+      <div>
+        <div class="guide-meta">Guide · Social engineering</div>
+        <h3>Why urgency is always the tell</h3>
+        <p>Real institutions rarely need you to act in the next 10 minutes. Scammers always do.</p>
+      </div>
+      <span class="guide-arrow">→</span>
+    </a>
+    <div style="text-align:center; margin-top:32px;">
+      <a href="learn.html" class="btn btn-outline">See all guides</a>
+    </div>
+  </div>
+</section>
+
+<section id="quiz-teaser">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="case-num">// TEST YOURSELF</div>
+      <h2 class="section-title">Would you catch this?</h2>
+    </div>
+    <div class="quiz-teaser">
+      <div class="msg-side">
+        <p>Real-style message, no real threat — see if you can spot what's wrong with it before you scroll further.</p>
+        <div class="fake-sms">
+          <div class="from">From: "HBL-Alert"</div>
+          Dear customer, your account will be suspended in 24 hrs. Verify now: hbl-secure-update.info/login
+        </div>
+      </div>
+      <div class="cta-side">
+        <h3>Take the full quiz</h3>
+        <p>10 real-style scenarios, instant scoring, no sign-up.</p>
+        <a href="quiz.html" class="btn">Start the quiz →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="lab-teaser">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="case-num">// GO HANDS-ON</div>
+      <h2 class="section-title">Practice in the interactive training lab</h2>
+      <p class="section-desc">Five safe, sandboxed modules that let you actually try the attacker's side of things — click through a phishing email, break a search box, run a simulated scan, audit a home network, and stress-test a password — then earn a shareable completion certificate.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <div class="icon">🎣</div>
+        <h3>Phishing spotter</h3>
+        <p>Click every red flag hidden in a realistic scam email — sender, wording, link, pressure tactics.</p>
+      </div>
+      <div class="card">
+        <div class="icon">💻</div>
+        <h3>Web input exploitation</h3>
+        <p>Try a SQL injection and an XSS payload against a simulated search box and see exactly what breaks.</p>
+      </div>
+      <div class="card">
+        <div class="icon">📡</div>
+        <h3>Scanner, IoT audit &amp; password lab</h3>
+        <p>Run a simulated security scan, audit a home network's risk, and build a password that would actually hold up.</p>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top:36px;">
+      <a href="training.html" class="btn">Enter the training lab →</a>
+    </div>
+  </div>
+</section>
+
+<section id="report">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="case-num">// IF IT ALREADY HAPPENED</div>
+      <h2 class="section-title">Where to actually report it in Pakistan</h2>
+      <p class="section-desc">If you've been scammed or think your account is compromised, act fast — most banks can only reverse a transaction within a short window.</p>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <h3>FIA Cyber Crime Wing (NR3C)</h3>
+        <p>Pakistan's federal agency for cybercrime complaints — phishing, hacking, financial fraud, and online harassment. File a complaint through their official helpline or nearest zonal office.</p>
+      </div>
+      <div class="card">
+        <h3>Your bank's fraud/helpline</h3>
+        <p>Call the number printed on your card or official app — never a number sent to you in a text — and freeze the account immediately if you shared an OTP or card details.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="case-num">// WHO'S BEHIND THIS</div>
+      <h2 class="section-title">Built as a hands-on cyber security project</h2>
+      <p class="section-desc">SecurePK is built and maintained by Yousuf Saeed, a cyber security diploma student at Aligarh Institute, as an applied project in practical security awareness — combining real threat patterns seen in Pakistan with plain-language guides and a hands-on training lab.</p>
+    </div>
+    <div class="grid-3" style="margin-top:8px;">
+      <div class="card">
+        <svg width="34" height="34" viewBox="0 0 100 100" style="margin-bottom:10px;">
+          <circle cx="50" cy="50" r="46" fill="none" stroke="var(--cyan)" stroke-width="2" opacity="0.5"/>
+          <path d="M50 14 L80 26 V50 C80 68 67 82 50 88 C33 82 20 68 20 50 V26 Z" fill="rgba(var(--a1),0.10)" stroke="var(--cyan)" stroke-width="3"/>
+          <path d="M38 51 L46 59 L64 39" fill="none" stroke="var(--cyan)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h3>Diploma in Cyber Security</h3>
+        <p>Currently studying at Aligarh Institute, with a focus on practical, hands-on security skills.</p>
+      </div>
+      <div class="card">
+        <svg width="34" height="34" viewBox="0 0 100 100" style="margin-bottom:10px;">
+          <rect x="16" y="26" width="68" height="50" rx="4" fill="rgba(var(--a1),0.10)" stroke="var(--cyan)" stroke-width="3"/>
+          <path d="M16 38 H84" stroke="var(--cyan)" stroke-width="3"/>
+          <circle cx="27" cy="32" r="2.5" fill="var(--cyan)"/>
+          <circle cx="36" cy="32" r="2.5" fill="var(--cyan)"/>
+          <path d="M32 52 L44 62 L68 42" fill="none" stroke="var(--cyan)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h3>Built from the ground up</h3>
+        <p>Every guide, quiz question, and lab module on this site was written and coded as an applied coursework project.</p>
+      </div>
+      <div class="card">
+        <svg width="34" height="34" viewBox="0 0 100 100" style="margin-bottom:10px;">
+          <path d="M50 12 L88 30 V52 C88 72 71 88 50 96 C29 88 12 72 12 52 V30 Z" fill="none" stroke="var(--cyan)" stroke-width="3"/>
+          <circle cx="50" cy="46" r="14" fill="none" stroke="var(--cyan)" stroke-width="3"/>
+          <path d="M50 60 V80" stroke="var(--cyan)" stroke-width="3"/>
+          <path d="M50 46 L50 38 M50 46 L57 51" stroke="var(--cyan)" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        <h3>Grounded in local threats</h3>
+        <p>Scenarios reflect scam patterns actually reported in Pakistan — OTP fraud, courier smishing, job and prize scams.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <path d="M100 14 L172 42 V96 C172 140 142 172 100 188 C58 172 28 140 28 96 V42 Z" fill="none" stroke="var(--cyan)" stroke-width="10"/>
+          <path d="M78 98 L94 114 L126 78" fill="none" stroke="var(--cyan)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        SecurePK<span class="dot" style="color:var(--cyan);">.</span>
+      </div>
+      <p class="footer-desc">Plain-language guides and a hands-on training lab to help everyday people in Pakistan avoid being hacked or defrauded online. Every lab exercise is a scripted, client-side simulation — nothing leaves your browser.</p>
+      <p class="footer-credit">Built by Yousuf Saeed — Diploma in Cyber Security, Aligarh Institute</p>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <a href="index.html">Home</a>
+      <a href="learn.html">Guides</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="training.html">Training Lab</a>
+    </div>
+    <div class="footer-col">
+      <h4>Safety</h4>
+      <a href="index.html#threats">Scam patterns</a>
+      <a href="index.html#report">Report a scam</a>
+      <a href="training.html#summary">Get certified</a>
+    </div>
+    <div class="footer-col">
+      <h4>Reference tools</h4>
+      <a href="https://owasp.org/www-project-top-ten/" target="_blank" rel="noopener">OWASP Top 10</a>
+      <a href="index.html#about">About this project</a>
+      <a href="sitemap.html">Sitemap</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-bottom-text">© 2026 SecurePK — an awareness project by Yousuf Saeed. Educational content only, not legal or financial advice.</span>
+    <span class="footer-status"><span class="dot-ring"></span>No data leaves this page</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
